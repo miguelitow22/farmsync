@@ -15,11 +15,11 @@ function displayError(elementId, message) {
     element.style.display = 'block';
   }
 }
+
 // Esperar a que el DOM se cargue completamente
 document.addEventListener("DOMContentLoaded", async () => {
-
-  // Redirección en caso de que el usuario ya esté autenticado
-  const session = supabaseClient.auth.session();
+  // Obtener la sesión actual de forma asíncrona (versión 2 de supabase-js)
+  const { data: { session } } = await supabaseClient.auth.getSession();
   if (session) {
     window.location.href = "dashboard.html";
     return;
@@ -41,8 +41,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
       }
 
-      // Realizar el login usando Supabase
-      const { data: user, error } = await supabaseClient.auth.signIn({ email, password });
+      // En la versión 2 usamos "signInWithPassword" en lugar de "signIn"
+      const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
       if (error) {
         displayError('login-error', error.message);
       } else {
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
       }
 
-      // Realizar el registro usando Supabase
+      // Realizar el registro usando Supabase (este método sigue siendo signUp)
       const { data: user, error } = await supabaseClient.auth.signUp({ email, password });
       if (error) {
         displayError('signup-error', error.message);
