@@ -11,24 +11,66 @@
 <body>
   <!-- Header -->
   <header class="container-fluid bg-success text-white p-3">
-    <h1 class="text-center">Bienvenido a FarmSync</h1>
+    <div class="d-flex justify-content-between align-items-center">
+      <h1 class="text-center">Bienvenido a FarmSync</h1>
+      <!-- Botón de Cerrar Sesión -->
+      <button id="signOutBtn" class="btn btn-secondary">Cerrar Sesión</button>
+    </div>
   </header>
   
   <!-- Main Content -->
   <main class="container my-4">
-    <!-- Sección para visualizar los registros -->
-    <section>
-      <h2 class="mb-4">Registros de Sensores</h2>
+    <!-- Monitoreo en tiempo real -->
+    <section id="realTimeSection" class="mb-4">
+      <h2>Monitoreo en Tiempo Real</h2>
+      <div id="realTimeMonitoring" class="border p-3">
+        <p>Cargando datos en tiempo real...</p>
+      </div>
+    </section>
+
+    <!-- Alertas automáticas -->
+    <section id="alertsSection" class="mb-4">
+      <h2>Alertas Automáticas</h2>
+      <div id="alertsContainer" class="border p-3">
+        <p>No hay alertas por el momento.</p>
+      </div>
+    </section>
+
+    <!-- Recomendaciones de riego -->
+    <section id="recommendationsSection" class="mb-4">
+      <h2>Recomendaciones de Riego</h2>
+      <div id="recommendationsContainer" class="border p-3">
+        <p>No hay recomendaciones por el momento.</p>
+      </div>
+    </section>
+
+    <!-- Historial y análisis de datos -->
+    <section id="historicalSection" class="mb-4">
+      <h2>Historial y Análisis de Datos</h2>
+      <div id="historicalContainer" class="border p-3">
+        <p>Cargando datos históricos...</p>
+      </div>
+    </section>
+
+    <!-- Detección de anomalías -->
+    <section id="anomaliesSection" class="mb-4">
+      <h2>Detección de Anomalías</h2>
+      <div id="anomaliesContainer" class="border p-3">
+        <p>No se han detectado anomalías.</p>
+      </div>
+    </section>
+
+    <hr>
+
+    <!-- Sección existente para CRUD de datos de sensores (opcional) -->
+    <section id="crudSection">
+      <h2>Registros de Sensores (CRUD)</h2>
       <!-- Botón para recargar registros -->
       <button id="btnFetch" class="btn btn-primary mb-3">Cargar Datos</button>
       <!-- Contenedor donde se renderizará la tabla o lista con los datos -->
       <div id="dataContainer"></div>
-    </section>
-    
-    <hr>
-    
-    <!-- Formulario para agregar un nuevo registro -->
-    <section>
+      
+      <!-- Formulario para agregar un nuevo registro -->
       <h3 class="mt-4">Añadir Registro</h3>
       <form id="createForm" class="mb-4">
         <div class="mb-3">
@@ -49,8 +91,8 @@
     <p>&copy; 2025 FarmSync. Todos los derechos reservados.</p>
   </footer>
   
-  <!-- Scripts: Carga primero la librería de Supabase, luego tu app.js y por último Bootstrap -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/dist/supabase.min.js"></script>
+  <!-- Scripts: Carga primero Supabase, luego app.js, y finalmente Bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/dist/umd/supabase.min.js"></script>
   <script src="app.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
