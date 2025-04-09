@@ -1,8 +1,7 @@
 // Configuración del cliente Supabase
-const SUPABASE_URL = 'https://xydxwqptddhhbtecpwxb.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh5ZHh3cXB0ZGRoaGJ0ZWNwd3hiIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0NDE1NjY2OSwiZXhwIjoyMDU5NzMyNjY5fQ.S6YmOdNN-F2Xc3P09y-ZcS3I4WiV5FvLOGDEzGvL3BE';
-const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
+const supabaseUrl = 'https://xydxwqptddhhbtecpwxb.supabase.co'
+const supabaseKey = process.env.SUPABASE_KEY
+const supabase = createClient(supabaseUrl, supabaseKey)
 /**
  * Muestra un mensaje de error en el elemento indicado.
  * @param {string} elementId - ID del elemento donde se mostrará el error.
