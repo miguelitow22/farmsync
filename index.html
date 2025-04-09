@@ -4,202 +4,252 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>FarmSync - Dashboard</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Estilos personalizados con mejoras -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Estilos personalizados con mejoras avanzadas -->
   <style>
-    /* Variables de colores y tipografía */
     :root {
-      --primary-color: #2980b9;         /* Azul profundo */
-      --secondary-color: #ecf0f1;       /* Gris muy claro */
-      --accent-color: #e74c3c;          /* Rojo de acento */
-      --bg-gradient-start: #2ecc71;     /* Verde vibrante */
-      --bg-gradient-end: #3498db;       /* Azul brillante */
+      --primary-color: #2980b9; /* Azul profundo */
+      --secondary-color: #ecf0f1; /* Gris muy claro */
+      --accent-color: #e74c3c;    /* Rojo de acento */
+      --bg-gradient-start: #2ecc71; /* Verde vibrante */
+      --bg-gradient-end: #3498db;   /* Azul brillante */
       --card-bg: #ffffff;
       --card-radius: 12px;
       --card-shadow: rgba(0, 0, 0, 0.15);
       --card-hover-shadow: rgba(0, 0, 0, 0.25);
-      --transition-duration: 0.3s;
-      --font-family-base: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      --transition-duration: 0.4s;
+      --font-family-base: 'Poppins', sans-serif;
     }
 
-    /* Fondo animado para todo el body */
+    /* Fondo animado mejorado */
     body {
       font-family: var(--font-family-base);
       margin: 0;
       padding: 0;
       background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
-      background-size: 400% 400%;
-      animation: gradientBG 15s ease infinite;
+      background-size: 200% 200%;
+      animation: gradientShift 20s ease infinite;
       color: #333;
     }
-    @keyframes gradientBG {
+    @keyframes gradientShift {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
 
-    /* Animación para la aparición de elementos */
+    /* Efecto fade in para toda la página */
     .fade-in {
-      animation: fadeIn 1s ease forwards;
+      opacity: 0;
+      animation: fadeInAnimation 1s forwards ease;
     }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    @keyframes fadeInAnimation {
+      to { opacity: 1; }
     }
 
-    /* Estilo para el encabezado */
+    /* Animación para elementos al hacer scroll */
+    .slide-up {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: transform 0.6s ease, opacity 0.6s ease;
+    }
+    .slide-up.appear {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Encabezado sticky mejorado */
     header {
       background: var(--primary-color);
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      padding: 1rem;
+      transition: background 0.4s ease;
     }
     header h1 {
-      font-size: 2rem;
+      font-size: 2.5rem;
+      color: #fff;
       margin: 0;
     }
+    header .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-    /* Tarjetas (cards) con efectos y transiciones */
+    /* Botones personalizados */
+    .btn-custom {
+      background-color: var(--accent-color);
+      border: none;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      border-radius: 6px;
+      transition: background-color var(--transition-duration) ease, transform var(--transition-duration) ease;
+    }
+    .btn-custom:hover {
+      background-color: #c0392b;
+      transform: translateY(-2px);
+    }
+
+    /* Diseño de main y secciones */
+    main {
+      background: var(--secondary-color);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+      margin: 2rem auto;
+      max-width: 1200px;
+    }
+    section {
+      margin-bottom: 3rem;
+    }
+    section h2 {
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+      border-left: 5px solid var(--primary-color);
+      padding-left: 1rem;
+      font-size: 2rem;
+    }
+    section h3 {
+      color: var(--accent-color);
+      margin-top: 2rem;
+      font-size: 1.75rem;
+    }
+
+    /* Estilos para tarjetas (cards) */
     .card {
       background: var(--card-bg);
       border-radius: var(--card-radius);
       box-shadow: 0 4px 8px var(--card-shadow);
       transition: transform var(--transition-duration) ease, box-shadow var(--transition-duration) ease;
       overflow: hidden;
-      position: relative;
+      margin-bottom: 1.5rem;
     }
     .card:hover {
       transform: scale(1.03);
       box-shadow: 0 8px 16px var(--card-hover-shadow);
     }
-    .card::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(0,0,0,0.05));
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity var(--transition-duration) ease;
+    .card-header {
+      background: var(--primary-color);
+      color: #fff;
+      padding: 1rem;
+      font-size: 1.25rem;
+      border-top-left-radius: var(--card-radius);
+      border-top-right-radius: var(--card-radius);
     }
-    .card:hover::before {
-      opacity: 1;
-    }
-
-    /* Estilos para secciones del dashboard */
-    main {
-      background: var(--secondary-color);
-      border-radius: 8px;
-      padding: 2rem;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-    section {
-      margin-bottom: 2rem;
-    }
-    section h2 {
-      color: var(--primary-color);
-      margin-bottom: 1rem;
-      border-bottom: 2px solid var(--primary-color);
-      padding-bottom: 0.5rem;
-    }
-    section h3 {
-      color: var(--accent-color);
-      margin-top: 1.5rem;
+    .card-body {
+      padding: 1.5rem;
     }
 
-    /* Botones personalizados */
-    .btn-primary {
-      background-color: var(--primary-color);
-      border: none;
-      transition: background-color var(--transition-duration) ease;
+    /* Estilos para tablas */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      transition: transform 0.3s ease;
     }
-    .btn-primary:hover {
-      background-color: #1f6391;
+    table thead {
+      background: var(--primary-color);
+      color: #fff;
     }
-    .btn-success {
-      background-color: #2ecc71;
-      border: none;
-      transition: background-color var(--transition-duration) ease;
+    table th, table td {
+      padding: 1rem;
+      text-align: left;
+      border: 1px solid #ddd;
     }
-    .btn-success:hover {
-      background-color: #27ae60;
+    table tbody tr {
+      background: #fff;
+      transition: background 0.3s ease;
     }
-    .btn-secondary {
-      background-color: var(--accent-color);
-      border: none;
-      transition: background-color var(--transition-duration) ease;
-    }
-    .btn-secondary:hover {
-      background-color: #c0392b;
+    table tbody tr:hover {
+      background: #f7f7f7;
     }
 
-    /* Responsive: Ajustes para dispositivos pequeños */
+    /* Formularios mejorados */
+    form input, form button {
+      transition: all 0.3s ease;
+    }
+    form input:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 5px var(--primary-color);
+    }
+
+    /* Pie de Página */
+    footer {
+      background: #222;
+      color: #ccc;
+      padding: 1rem;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    /* Media queries para dispositivos pequeños */
     @media (max-width: 768px) {
-      header h1 {
-        font-size: 1.5rem;
-      }
-      main {
-        padding: 1.5rem;
-      }
-      section h2 {
-        font-size: 1.5rem;
-      }
+      header h1 { font-size: 1.8rem; }
+      section h2 { font-size: 1.5rem; }
+      main { padding: 1.5rem; }
     }
   </style>
 </head>
 <body class="fade-in">
   <!-- Encabezado -->
-  <header class="container-fluid p-3">
-    <div class="d-flex justify-content-between align-items-center">
-      <h1 class="text-white">Bienvenido a FarmSync</h1>
-      <button id="signOutBtn" class="btn btn-secondary">Cerrar Sesión</button>
+  <header>
+    <div class="container header-container">
+      <h1>FarmSync</h1>
+      <!-- Se pueden agregar botones u otros elementos si es necesario -->
     </div>
   </header>
   
   <!-- Contenido Principal -->
-  <main class="container my-4">
-    <!-- Monitoreo en Tiempo Real -->
-    <section id="realTimeSection">
+  <main>
+    <!-- Sección: Monitoreo en Tiempo Real -->
+    <section id="realTimeSection" class="slide-up">
       <h2>Monitoreo en Tiempo Real</h2>
-      <div id="realTimeMonitoring" class="border p-3">
+      <div id="realTimeMonitoring" class="border p-3 rounded">
         <p>Cargando datos en tiempo real...</p>
       </div>
     </section>
-
-    <!-- Alertas Automáticas -->
-    <section id="alertsSection">
+    
+    <!-- Sección: Alertas Automáticas -->
+    <section id="alertsSection" class="slide-up">
       <h2>Alertas Automáticas</h2>
-      <div id="alertsContainer" class="border p-3">
+      <div id="alertsContainer" class="border p-3 rounded">
         <p>No hay alertas por el momento.</p>
       </div>
     </section>
-
-    <!-- Recomendaciones de Riego -->
-    <section id="recommendationsSection">
+    
+    <!-- Sección: Recomendaciones de Riego -->
+    <section id="recommendationsSection" class="slide-up">
       <h2>Recomendaciones de Riego</h2>
-      <div id="recommendationsContainer" class="border p-3">
+      <div id="recommendationsContainer" class="border p-3 rounded">
         <p>No hay recomendaciones por el momento.</p>
       </div>
     </section>
-
-    <!-- Historial y Análisis de Datos -->
-    <section id="historicalSection">
+    
+    <!-- Sección: Historial y Análisis de Datos -->
+    <section id="historicalSection" class="slide-up">
       <h2>Historial y Análisis de Datos</h2>
-      <div id="historicalContainer" class="border p-3">
+      <div id="historicalContainer" class="border p-3 rounded">
         <p>Cargando datos históricos...</p>
       </div>
     </section>
-
-    <!-- Detección de Anomalías -->
-    <section id="anomaliesSection">
+    
+    <!-- Sección: Detección de Anomalías -->
+    <section id="anomaliesSection" class="slide-up">
       <h2>Detección de Anomalías</h2>
-      <div id="anomaliesContainer" class="border p-3">
+      <div id="anomaliesContainer" class="border p-3 rounded">
         <p>No se han detectado anomalías.</p>
       </div>
     </section>
-
+    
     <hr>
-
+    
     <!-- Sección CRUD para Registros de Sensores -->
-    <section id="crudSection">
+    <section id="crudSection" class="slide-up">
       <h2>Registros de Sensores (CRUD)</h2>
       <button id="btnFetch" class="btn btn-primary mb-3">Cargar Datos</button>
       <div id="dataContainer"></div>
@@ -219,13 +269,27 @@
   </main>
   
   <!-- Pie de Página -->
-  <footer class="container-fluid bg-dark text-white text-center p-3">
+  <footer>
     <p>&copy; 2025 FarmSync. Todos los derechos reservados.</p>
   </footer>
   
   <!-- Carga de scripts en el orden correcto -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/dist/umd/supabase.min.js"></script>
   <script src="app.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Función para activar la animación "slide-up" al hacer scroll
+    function revealOnScroll() {
+      const elements = document.querySelectorAll('.slide-up');
+      elements.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 50) {
+          el.classList.add('appear');
+        }
+      });
+    }
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('load', revealOnScroll);
+  </script>
 </body>
 </html>
