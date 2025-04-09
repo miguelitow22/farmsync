@@ -8,17 +8,47 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+  <!-- Header -->
   <header class="container-fluid bg-success text-white p-3">
     <h1 class="text-center">Bienvenido a FarmSync</h1>
   </header>
+  
+  <!-- Main Content -->
   <main class="container my-4">
-    <p>Aquí se desplegará el contenido principal del sistema FarmSync.</p>
-    <!-- Se pueden agregar más funcionalidades, como monitoreo en tiempo real, alertas, etc. -->
+    <section>
+      <h2 class="mb-4">Registros de Sensores</h2>
+      <!-- Botón para recargar registros -->
+      <button id="btnFetch" class="btn btn-primary mb-3">Cargar Datos</button>
+      <!-- Contenedor donde se renderizará la tabla con los datos -->
+      <div id="dataContainer"></div>
+    </section>
+    
+    <hr>
+    
+    <!-- Formulario para agregar un nuevo registro -->
+    <section>
+      <h3 class="mt-4">Añadir Registro</h3>
+      <form id="createForm" class="mb-4">
+        <div class="mb-3">
+          <label for="inputHumidity" class="form-label">Humedad (%)</label>
+          <input type="number" id="inputHumidity" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="inputTemperature" class="form-label">Temperatura (°C)</label>
+          <input type="number" step="0.1" id="inputTemperature" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-success">Agregar Registro</button>
+      </form>
+    </section>
   </main>
+  
+  <!-- Footer -->
   <footer class="container-fluid bg-dark text-white text-center p-3">
     <p>&copy; 2025 FarmSync. Todos los derechos reservados.</p>
   </footer>
   
+  <!-- Scripts: Incluimos Supabase y Bootstrap, luego nuestro script principal -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/dist/supabase.min.js"></script>
   <script src="app.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
