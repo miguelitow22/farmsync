@@ -4,57 +4,63 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>FarmSync - Dashboard</title>
+  <!-- Estilos personalizados -->
   <link rel="stylesheet" href="styles.css">
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-  <!-- Header -->
+  <!-- Encabezado -->
   <header class="container-fluid bg-success text-white p-3">
     <div class="d-flex justify-content-between align-items-center">
-      <h1 class="text-center">Bienvenido a FarmSync</h1>
-      <!-- Botón de Cerrar Sesión -->
+      <h1 class="text-center m-0">Bienvenido a FarmSync</h1>
+      <!-- Botón para cerrar sesión -->
       <button id="signOutBtn" class="btn btn-secondary">Cerrar Sesión</button>
     </div>
   </header>
   
-  <!-- Main Content -->
+  <!-- Contenido Principal -->
   <main class="container my-4">
-    <!-- Monitoreo en tiempo real -->
+    <!-- Sección de Monitoreo en Tiempo Real -->
     <section id="realTimeSection" class="mb-4">
       <h2>Monitoreo en Tiempo Real</h2>
+      <!-- Contenedor para mostrar datos en tiempo real -->
       <div id="realTimeMonitoring" class="border p-3">
         <p>Cargando datos en tiempo real...</p>
       </div>
     </section>
 
-    <!-- Alertas automáticas -->
+    <!-- Sección de Alertas Automáticas -->
     <section id="alertsSection" class="mb-4">
       <h2>Alertas Automáticas</h2>
+      <!-- Contenedor para mostrar alertas -->
       <div id="alertsContainer" class="border p-3">
         <p>No hay alertas por el momento.</p>
       </div>
     </section>
 
-    <!-- Recomendaciones de riego -->
+    <!-- Sección de Recomendaciones de Riego -->
     <section id="recommendationsSection" class="mb-4">
       <h2>Recomendaciones de Riego</h2>
+      <!-- Contenedor para mostrar recomendaciones -->
       <div id="recommendationsContainer" class="border p-3">
         <p>No hay recomendaciones por el momento.</p>
       </div>
     </section>
 
-    <!-- Historial y análisis de datos -->
+    <!-- Sección de Historial y Análisis de Datos -->
     <section id="historicalSection" class="mb-4">
       <h2>Historial y Análisis de Datos</h2>
+      <!-- Contenedor para la tabla con datos históricos -->
       <div id="historicalContainer" class="border p-3">
         <p>Cargando datos históricos...</p>
       </div>
     </section>
 
-    <!-- Detección de anomalías -->
+    <!-- Sección de Detección de Anomalías -->
     <section id="anomaliesSection" class="mb-4">
       <h2>Detección de Anomalías</h2>
+      <!-- Contenedor para mostrar las anomalías detectadas -->
       <div id="anomaliesContainer" class="border p-3">
         <p>No se han detectado anomalías.</p>
       </div>
@@ -62,7 +68,7 @@
 
     <hr>
 
-    <!-- Sección existente para CRUD de datos de sensores (opcional) -->
+    <!-- Sección CRUD para Registros de Sensores -->
     <section id="crudSection">
       <h2>Registros de Sensores (CRUD)</h2>
       <!-- Botón para recargar registros -->
@@ -86,12 +92,12 @@
     </section>
   </main>
   
-  <!-- Footer -->
+  <!-- Pie de página -->
   <footer class="container-fluid bg-dark text-white text-center p-3">
     <p>&copy; 2025 FarmSync. Todos los derechos reservados.</p>
   </footer>
   
-  <!-- Scripts: Carga primero Supabase, luego app.js, y finalmente Bootstrap -->
+  <!-- Scripts: Asegurarse de cargar primero la librería de Supabase, luego nuestro app.js, y por último Bootstrap -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/dist/umd/supabase.min.js"></script>
   <script src="app.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>

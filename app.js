@@ -1,4 +1,5 @@
-// Configuración del cliente Supabase sin persistencia en este ejemplo (opcional)
+// Configuración del cliente Supabase (opcional: sin persistencia de sesión si se desea)
+// Puedes incluir opciones adicionales en el objeto de configuración si es necesario.
 const SUPABASE_URL = 'https://xydxwqptddhhbtecpwxb.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh5ZHh3cXB0ZGRoaGJ0ZWNwd3hiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQxNTY2NjksImV4cCI6MjA1OTczMjY2OX0.FHk-nf7AWqTrwrLbrB3kZ-uZr5bNn6K2h7nEMFsksIE';
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -16,7 +17,11 @@ function displayError(elementId, message) {
   }
 }
 
-// Función para simular monitoreo en tiempo real (datos aleatorios cada 5 segundos)
+/* ----------------------------------
+   Funciones de simulación para el Dashboard
+------------------------------------- */
+
+// Simula el monitoreo en tiempo real (datos aleatorios cada 5 segundos)
 function simulateRealTimeMonitoring() {
   setInterval(() => {
     const sensorData = {
@@ -30,10 +35,11 @@ function simulateRealTimeMonitoring() {
   }, 5000);
 }
 
-// Función para simular alertas automáticas (con 30% probabilidad cada 7 segundos)
+// Simula alertas automáticas (30% probabilidad cada 7 segundos)
 function simulateAlerts() {
   setInterval(() => {
     const alertsEl = document.getElementById('alertsContainer');
+    if (!alertsEl) return;
     if (Math.random() < 0.3) {
       alertsEl.innerHTML = `<div class="alert alert-warning" role="alert">¡Alerta! Condición crítica detectada en el sensor.</div>`;
     } else {
@@ -42,15 +48,16 @@ function simulateAlerts() {
   }, 7000);
 }
 
-// Función para simular recomendaciones de riego (actualización cada 10 segundos)
+// Simula recomendaciones de riego (actualización cada 10 segundos)
 function simulateIrrigationRecommendations() {
   setInterval(() => {
     const recEl = document.getElementById('recommendationsContainer');
+    if (!recEl) return;
     recEl.innerHTML = `<p>Recomendación: Riego moderado. Aplicar 15 litros/m².</p>`;
   }, 10000);
 }
 
-// Función para mostrar datos históricos (dummy, ejemplo estático)
+// Muestra datos históricos (ejemplo estático/dummy)
 function displayHistoricalData() {
   const historicalData = [
     { date: '2025-01-01', humidity: 45, temperature: 22 },
@@ -58,6 +65,8 @@ function displayHistoricalData() {
     { date: '2025-01-03', humidity: 40, temperature: 20 }
   ];
   const histEl = document.getElementById('historicalContainer');
+  if (!histEl) return;
+  
   let html = `<table class="table table-bordered">
                 <thead>
                   <tr>
@@ -78,10 +87,11 @@ function displayHistoricalData() {
   histEl.innerHTML = html;
 }
 
-// Función para simular detección de anomalías (20% de probabilidad cada 15 segundos)
+// Simula la detección de anomalías (20% de probabilidad cada 15 segundos)
 function simulateAnomalyDetection() {
   setInterval(() => {
     const anomalyEl = document.getElementById('anomaliesContainer');
+    if (!anomalyEl) return;
     if (Math.random() < 0.2) {
       anomalyEl.innerHTML = `<p class="text-danger">Posible anomalía detectada: Señales de deficiencia nutricional.</p>`;
     } else {
@@ -90,7 +100,11 @@ function simulateAnomalyDetection() {
   }, 15000);
 }
 
-// Función para cerrar sesión (redirige al login)
+/* ----------------------------------
+   Funciones de autenticación y CRUD para datos de sensores
+------------------------------------- */
+
+// Función para cerrar sesión y redirigir al login
 async function signOutUser() {
   const { error } = await supabaseClient.auth.signOut();
   if (error) {
@@ -100,8 +114,9 @@ async function signOutUser() {
   }
 }
 
-// Función para manejo CRUD de datos de sensores (ejemplo sencillo)
+// Función para obtener registros de la tabla sensor_data
 async function fetchSensorData() {
+  // Obtenemos el usuario a partir de la sesión actual
   const user = supabaseClient.auth.session()?.user;
   if (!user) {
     console.error('No hay usuario autenticado para obtener datos.');
@@ -118,15 +133,22 @@ async function fetchSensorData() {
   }
 }
 
+// Renderiza los datos obtenidos en una tabla
 function renderSensorData(data) {
   const container = document.getElementById('dataContainer');
+  if (!container) return;
   if (!data || data.length === 0) {
     container.innerHTML = '<p>No hay registros de sensores.</p>';
     return;
   }
   let html = `<table class="table table-striped">
                 <thead>
-                  <tr><th>ID</th><th>Humedad (%)</th><th>Temperatura (°C)</th><th>Acciones</th></tr>
+                  <tr>
+                    <th>ID</th>
+                    <th>Humedad (%)</th>
+                    <th>Temperatura (°C)</th>
+                    <th>Acciones</th>
+                  </tr>
                 </thead>
                 <tbody>`;
   data.forEach(record => {
@@ -144,6 +166,7 @@ function renderSensorData(data) {
   container.innerHTML = html;
 }
 
+// Función para eliminar un registro de sensor
 async function deleteSensorData(recordId) {
   const user = supabaseClient.auth.session()?.user;
   if (!user) return;
@@ -159,7 +182,7 @@ async function deleteSensorData(recordId) {
   }
 }
 
-// Función básica para editar un registro (usa prompt, se puede mejorar usando un modal)
+// Función básica para editar un registro (usa prompt, se puede mejorar con modal)
 function onEditRecord(recordId, currentHumidity, currentTemperature) {
   const newHumidity = prompt("Nueva humedad (%)", currentHumidity);
   const newTemperature = prompt("Nueva temperatura (°C)", currentTemperature);
@@ -171,6 +194,7 @@ function onEditRecord(recordId, currentHumidity, currentTemperature) {
   }
 }
 
+// Actualiza un registro de sensor y recarga la lista de datos
 async function updateSensorData(recordId, updatedValues) {
   const user = supabaseClient.auth.session()?.user;
   if (!user) return;
@@ -187,41 +211,61 @@ async function updateSensorData(recordId, updatedValues) {
 }
 
 // Manejo del formulario para crear nuevos registros en la sección CRUD
-document.getElementById('createForm')?.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const humidity = Number(document.getElementById('inputHumidity').value);
-  const temperature = Number(document.getElementById('inputTemperature').value);
-  
-  const user = supabaseClient.auth.session()?.user;
-  if (!user) {
-    console.error('No hay usuario autenticado.');
-    return;
-  }
-  
-  const { data, error } = await supabaseClient
-    .from('sensor_data')
-    .insert([{ user_id: user.id, humidity, temperature }]);
-  if (error) {
-    console.error('Error al insertar registro:', error.message);
-  } else {
-    document.getElementById('createForm').reset();
-    fetchSensorData();
-  }
-});
+const createForm = document.getElementById('createForm');
+if (createForm) {
+  createForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const humidity = Number(document.getElementById('inputHumidity').value);
+    const temperature = Number(document.getElementById('inputTemperature').value);
+    
+    const user = supabaseClient.auth.session()?.user;
+    if (!user) {
+      console.error('No hay usuario autenticado.');
+      return;
+    }
+    
+    const { data, error } = await supabaseClient
+      .from('sensor_data')
+      .insert([{ user_id: user.id, humidity, temperature }]);
+    if (error) {
+      console.error('Error al insertar registro:', error.message);
+    } else {
+      createForm.reset();
+      fetchSensorData();
+    }
+  });
+}
 
-// Asignar evento para el botón de recargar registros
-document.getElementById('btnFetch')?.addEventListener('click', fetchSensorData);
+// Asignar evento para el botón de recargar registros (si existe)
+const btnFetch = document.getElementById('btnFetch');
+if (btnFetch) {
+  btnFetch.addEventListener('click', fetchSensorData);
+}
 
-// Asignar evento para el botón de cerrar sesión
-document.getElementById('signOutBtn')?.addEventListener('click', signOutUser);
+// Asignar evento para el botón de cerrar sesión (si existe)
+const signOutBtn = document.getElementById('signOutBtn');
+if (signOutBtn) {
+  signOutBtn.addEventListener('click', signOutUser);
+}
 
-// Cuando el DOM esté listo, inicia las simulaciones y carga datos
+/* ----------------------------------
+   Una única escucha de DOMContentLoaded para inicializar funciones en función de la página
+------------------------------------- */
 document.addEventListener("DOMContentLoaded", async () => {
-  // Obtiene la sesión; en el dashboard ya se supone que el usuario está autenticado.
-  // Ejecuta las funciones simuladas para mostrar cada funcionalidad
-  simulateRealTimeMonitoring();
-  simulateAlerts();
-  simulateIrrigationRecommendations();
-  displayHistoricalData();
-  simulateAnomalyDetection();
+  // Si existen elementos específicos del dashboard, ejecuta las funciones simuladas
+  if (document.getElementById('realTimeMonitoring')) {
+    simulateRealTimeMonitoring();
+  }
+  if (document.getElementById('alertsContainer')) {
+    simulateAlerts();
+  }
+  if (document.getElementById('recommendationsContainer')) {
+    simulateIrrigationRecommendations();
+  }
+  if (document.getElementById('historicalContainer')) {
+    displayHistoricalData();
+  }
+  if (document.getElementById('anomaliesContainer')) {
+    simulateAnomalyDetection();
+  }
 });

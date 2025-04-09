@@ -1,38 +1,141 @@
-/* styles.css */
-
 /* Variables de color y tipografía */
 :root {
-  --primary-color: #dfe9f3;
-  --secondary-color: #ffffff;
-  --card-shadow: rgba(0, 0, 0, 0.1);
-  --card-hover-shadow: rgba(0, 0, 0, 0.15);
-  --card-radius: 10px;
+  --primary-color: #3498db;           /* Azul vibrante */
+  --secondary-color: #ecf0f1;         /* Gris claro */
+  --accent-color: #e74c3c;            /* Rojo/acento */
+  --card-bg: #ffffff;                 /* Fondo blanco para cards */
+  --card-border-radius: 12px;
+  --card-shadow: rgba(0, 0, 0, 0.15);
+  --card-hover-shadow: rgba(0, 0, 0, 0.25);
+  --transition-duration: 0.3s;
   --font-family-base: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Fondo general */
+/* Fondo general con animación de degradado */
 body {
-  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
   margin: 0;
   padding: 0;
   font-family: var(--font-family-base);
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+}
+
+/* Animación de fondo */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Suavizado de entrada para contenedores */
+.container {
+  animation: fadeIn 1s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* Estilo de los cards */
 .card {
-  border-radius: var(--card-radius);
+  background: var(--card-bg);
+  border-radius: var(--card-border-radius);
   box-shadow: 0 4px 6px var(--card-shadow);
-  border: none;  
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: none;
+  transition: transform var(--transition-duration) ease, box-shadow var(--transition-duration) ease;
+  overflow: hidden;
+  position: relative;
 }
 
-/* Efecto hover en los cards */
+/* Efecto extra de superposición (overlay) en los cards */
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(0,0,0,0.05));
+  opacity: 0;
+  transition: opacity var(--transition-duration) ease;
+}
+
 .card:hover {
   transform: scale(1.02);
   box-shadow: 0 8px 12px var(--card-hover-shadow);
 }
 
-/* Espaciado y tipografía para encabezados */
+.card:hover::before {
+  opacity: 1;
+}
+
+/* Encabezados con animación de deslizamiento */
 h3 {
   font-family: var(--font-family-base);
+  color: var(--primary-color);
+  margin-bottom: 20px;
+  animation: slideIn 0.5s ease forwards;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Estilos adicionales para botones */
+.btn-primary {
+  background-color: var(--primary-color);
+  border: none;
+  transition: background-color var(--transition-duration) ease;
+}
+
+.btn-primary:hover {
+  background-color: #2980b9;
+}
+
+.btn-success {
+  background-color: #2ecc71;
+  border: none;
+  transition: background-color var(--transition-duration) ease;
+}
+
+.btn-success:hover {
+  background-color: #27ae60;
+}
+
+.btn-secondary {
+  background-color: var(--accent-color);
+  border: none;
+  transition: background-color var(--transition-duration) ease;
+}
+
+.btn-secondary:hover {
+  background-color: #c0392b;
+}
+
+/* Responsive: Ajustes para pantallas pequeñas */
+@media (max-width: 768px) {
+  .container {
+    padding: 20px;
+  }
+  h3 {
+    font-size: 1.4rem;
+  }
+  .card {
+    margin-bottom: 1rem;
+  }
 }
