@@ -14,7 +14,6 @@ function displayError(elementId, message) {
     element.style.display = 'block';
   }
 }
-
 // Esperar a que el DOM se cargue completamente
 document.addEventListener("DOMContentLoaded", async () => {
 
