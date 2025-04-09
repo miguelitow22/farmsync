@@ -28,6 +28,7 @@
                 <input type="password" class="form-control" id="login-password" placeholder="Contraseña" required>
               </div>
               <button type="submit" class="btn btn-primary w-100">Entrar</button>
+              <!-- Mensaje de error para login se mostrará aquí -->
               <div id="login-error" class="text-danger mt-2" style="display: none;"></div>
             </form>
           </div>
@@ -47,8 +48,11 @@
                 <input type="password" class="form-control" id="signup-password" placeholder="Contraseña" required>
               </div>
               <button type="submit" class="btn btn-success w-100">Registrarse</button>
+              <!-- Mensajes para error y éxito en el registro -->
               <div id="signup-error" class="text-danger mt-2" style="display: none;"></div>
-              <div id="signup-success" class="text-success mt-2" style="display: none;">Registro exitoso, por favor inicia sesión.</div>
+              <div id="signup-success" class="text-success mt-2" style="display: none;">
+                Registro exitoso, por favor inicia sesión.
+              </div>
             </form>
           </div>
         </div>
@@ -57,7 +61,7 @@
     </div>
   </div>
 
-  <!-- Librerías de Supabase y Bootstrap -->
+  <!-- Librerías: Supabase, app.js y Bootstrap -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/dist/supabase.min.js"></script>
   <script src="app.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
