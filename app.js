@@ -1,8 +1,16 @@
-// Configuración del cliente Supabase (opcional: sin persistencia de sesión si se desea)
-// Puedes incluir opciones adicionales en el objeto de configuración si es necesario.
+// Configuración del cliente Supabase
 const SUPABASE_URL = 'https://xydxwqptddhhbtecpwxb.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh5ZHh3cXB0ZGRoaGJ0ZWNwd3hiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQxNTY2NjksImV4cCI6MjA1OTczMjY2OX0.FHk-nf7AWqTrwrLbrB3kZ-uZr5bNn6K2h7nEMFsksIE';
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+/**
+ * Helper: Obtiene el usuario actual mediante getSession() (supabase-js v2)
+ * @returns {Promise<object|null>} El objeto usuario o null si no hay sesión.
+ */
+async function getCurrentUser() {
+  const { data: { session } } = await supabaseClient.auth.getSession();
+  return session?.user;
+}
 
 /**
  * Muestra un mensaje de error en el elemento indicado.
@@ -17,10 +25,9 @@ function displayError(elementId, message) {
   }
 }
 
-/* ----------------------------------
+/* --------------------------------------------------
    Funciones de simulación para el Dashboard
-------------------------------------- */
-
+-------------------------------------------------- */
 // Simula el monitoreo en tiempo real (datos aleatorios cada 5 segundos)
 function simulateRealTimeMonitoring() {
   setInterval(() => {
@@ -57,7 +64,7 @@ function simulateIrrigationRecommendations() {
   }, 10000);
 }
 
-// Muestra datos históricos (ejemplo estático/dummy)
+// Muestra datos históricos (dummy, ejemplo estático)
 function displayHistoricalData() {
   const historicalData = [
     { date: '2025-01-01', humidity: 45, temperature: 22 },
@@ -100,10 +107,9 @@ function simulateAnomalyDetection() {
   }, 15000);
 }
 
-/* ----------------------------------
+/* --------------------------------------------------
    Funciones de autenticación y CRUD para datos de sensores
-------------------------------------- */
-
+-------------------------------------------------- */
 // Función para cerrar sesión y redirigir al login
 async function signOutUser() {
   const { error } = await supabaseClient.auth.signOut();
@@ -116,8 +122,7 @@ async function signOutUser() {
 
 // Función para obtener registros de la tabla sensor_data
 async function fetchSensorData() {
-  // Obtenemos el usuario a partir de la sesión actual
-  const user = supabaseClient.auth.session()?.user;
+  const user = await getCurrentUser();
   if (!user) {
     console.error('No hay usuario autenticado para obtener datos.');
     return;
@@ -133,7 +138,7 @@ async function fetchSensorData() {
   }
 }
 
-// Renderiza los datos obtenidos en una tabla
+// Renderiza los datos en una tabla
 function renderSensorData(data) {
   const container = document.getElementById('dataContainer');
   if (!container) return;
@@ -166,11 +171,11 @@ function renderSensorData(data) {
   container.innerHTML = html;
 }
 
-// Función para eliminar un registro de sensor
+// Elimina un registro de sensor
 async function deleteSensorData(recordId) {
-  const user = supabaseClient.auth.session()?.user;
+  const user = await getCurrentUser();
   if (!user) return;
-  const { data, error } = await supabaseClient
+  const { error } = await supabaseClient
     .from('sensor_data')
     .delete()
     .eq('id', recordId)
@@ -182,7 +187,7 @@ async function deleteSensorData(recordId) {
   }
 }
 
-// Función básica para editar un registro (usa prompt, se puede mejorar con modal)
+// Función para editar un registro (usa prompt; se puede mejorar con modal)
 function onEditRecord(recordId, currentHumidity, currentTemperature) {
   const newHumidity = prompt("Nueva humedad (%)", currentHumidity);
   const newTemperature = prompt("Nueva temperatura (°C)", currentTemperature);
@@ -194,11 +199,11 @@ function onEditRecord(recordId, currentHumidity, currentTemperature) {
   }
 }
 
-// Actualiza un registro de sensor y recarga la lista de datos
+// Actualiza un registro y recarga la lista
 async function updateSensorData(recordId, updatedValues) {
-  const user = supabaseClient.auth.session()?.user;
+  const user = await getCurrentUser();
   if (!user) return;
-  const { data, error } = await supabaseClient
+  const { error } = await supabaseClient
     .from('sensor_data')
     .update(updatedValues)
     .eq('id', recordId)
@@ -210,7 +215,7 @@ async function updateSensorData(recordId, updatedValues) {
   }
 }
 
-// Manejo del formulario para crear nuevos registros en la sección CRUD
+// Manejo del formulario para crear nuevos registros (CRUD)
 const createForm = document.getElementById('createForm');
 if (createForm) {
   createForm.addEventListener('submit', async (e) => {
@@ -218,13 +223,13 @@ if (createForm) {
     const humidity = Number(document.getElementById('inputHumidity').value);
     const temperature = Number(document.getElementById('inputTemperature').value);
     
-    const user = supabaseClient.auth.session()?.user;
+    const user = await getCurrentUser();
     if (!user) {
       console.error('No hay usuario autenticado.');
       return;
     }
     
-    const { data, error } = await supabaseClient
+    const { error } = await supabaseClient
       .from('sensor_data')
       .insert([{ user_id: user.id, humidity, temperature }]);
     if (error) {
@@ -236,23 +241,33 @@ if (createForm) {
   });
 }
 
-// Asignar evento para el botón de recargar registros (si existe)
+// Eventos para botones
 const btnFetch = document.getElementById('btnFetch');
 if (btnFetch) {
   btnFetch.addEventListener('click', fetchSensorData);
 }
-
-// Asignar evento para el botón de cerrar sesión (si existe)
 const signOutBtn = document.getElementById('signOutBtn');
 if (signOutBtn) {
   signOutBtn.addEventListener('click', signOutUser);
 }
 
-/* ----------------------------------
-   Una única escucha de DOMContentLoaded para inicializar funciones en función de la página
-------------------------------------- */
+/* -------------------------------------------------
+   Inicialización al DOMContentLoaded según la página
+------------------------------------------------- */
 document.addEventListener("DOMContentLoaded", async () => {
-  // Si existen elementos específicos del dashboard, ejecuta las funciones simuladas
+  // Si se encuentra el formulario de login, asumimos que es la página de login,
+  // por lo que no ejecutamos funciones del dashboard.
+  const loginForm = document.getElementById('login-form');
+  if (loginForm) return;
+  
+  // En el dashboard, verificamos la sesión
+  const user = await getCurrentUser();
+  if (!user) {
+    window.location.href = "login.html";
+    return;
+  }
+  
+  // Ejecuta funciones simuladas si existen los contenedores en el DOM:
   if (document.getElementById('realTimeMonitoring')) {
     simulateRealTimeMonitoring();
   }
