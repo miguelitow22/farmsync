@@ -266,6 +266,105 @@
         <button type="submit" class="btn btn-success">Agregar Registro</button>
       </form>
     </section>
+
+    <!-- Botón para mostrar sección del PPI -->
+    <section id="ppiToggleSection" class="slide-up text-end mb-4">
+      <button class="btn btn-custom" onclick="mostrarPPI()">📘 Ver Información del Proyecto</button>
+    </section>
+
+    <!-- Sección Informativa del PPI (inicialmente oculta) -->
+    <section id="ppiSection" class="slide-up d-none">
+      <h2>Información General del Proyecto</h2>
+
+      <div class="card mb-4">
+        <div class="card-header">📡 Nombre del Proyecto</div>
+        <div class="card-body">
+          <p><strong>FarmSync:</strong> Monitoreo inteligente para la agricultura.</p>
+          <p><strong>Autores:</strong> Miguel Ángel López Salazar y Stiven Jaramillo Duque</p>
+          <p><strong>Institución:</strong> Tecnológico de Antioquia – Medellín</p>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-header">🎯 Objetivo General</div>
+        <div class="card-body">
+          <p>Desarrollar un sistema inteligente de monitoreo agrícola que use sensores para optimizar el riego, mejorar la producción y fomentar la sostenibilidad.</p>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-header">📌 Objetivos Específicos</div>
+        <div class="card-body">
+          <ul>
+            <li>Instalar sensores que midan humedad, temperatura y pH del suelo.</li>
+            <li>Diseñar una aplicación web/móvil para consultar los datos.</li>
+            <li>Enviar alertas y recomendaciones de riego.</li>
+            <li>Historial de datos y análisis predictivo.</li>
+            <li>Capacitar a agricultores para usar la tecnología.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-header">📋 Justificación</div>
+        <div class="card-body">
+          <p>FarmSync aborda el uso ineficiente del agua en la agricultura, ofreciendo a los agricultores una herramienta accesible, moderna y eficaz para tomar decisiones informadas y mejorar su productividad.</p>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-header">📦 Alcance</div>
+        <div class="card-body">
+          <ul>
+            <li>App accesible desde cualquier dispositivo.</li>
+            <li>Uso de sensores IoT en cultivos reales.</li>
+            <li>Sistema de alertas y análisis de riego.</li>
+            <li>Pruebas piloto en cultivos pequeños/medianos.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-header">🧩 Funciones Clave</div>
+        <div class="card-body">
+          <ul>
+            <li>Monitoreo en tiempo real</li>
+            <li>Alertas automáticas</li>
+            <li>Recomendaciones de riego</li>
+            <li>Historial de datos</li>
+            <li>Detección de anomalías</li>
+            <li>Gestión de cultivos y usuarios</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-header">🛠️ Metodología SCRUM</div>
+        <div class="card-body">
+          <p>El desarrollo de FarmSync sigue una metodología ágil SCRUM, permitiendo adaptabilidad, pruebas frecuentes y mejora continua basada en retroalimentación real.</p>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-header">⚙️ Recursos</div>
+        <div class="card-body">
+          <p><strong>Humanos:</strong> ingenieros electrónicos, desarrolladores, expertos en telecomunicaciones y energía.</p>
+          <p><strong>Tecnológicos:</strong> sensores IoT, internet rural, Supabase, app web/móvil, baterías o paneles solares.</p>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-header">🌍 Impacto Esperado</div>
+        <div class="card-body">
+          <ul>
+            <li>Ahorro significativo de agua</li>
+            <li>Mayor productividad agrícola</li>
+            <li>Reducción de costos y pérdidas</li>
+            <li>Protección del medio ambiente</li>
+          </ul>
+        </div>
+      </div>
+    </section>
   </main>
   
   <!-- Pie de Página -->
@@ -290,6 +389,14 @@
     }
     window.addEventListener('scroll', revealOnScroll);
     window.addEventListener('load', revealOnScroll);
+
+    function mostrarPPI() {
+      document.getElementById('ppiSection').classList.remove('d-none');
+      document.getElementById('ppiSection').classList.add('appear');
+      document.getElementById('ppiToggleSection').classList.add('d-none');
+      // Opcional: hacer scroll suave a la sección
+      document.getElementById('ppiSection').scrollIntoView({ behavior: 'smooth' });
+    }
   </script>
 </body>
 </html>

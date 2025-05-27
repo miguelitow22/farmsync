@@ -221,3 +221,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // Carga los datos de sensores al iniciar
   fetchSensorData();
 });
+function mostrarPPI() {
+  const ppiSection = document.getElementById('ppiSection');
+  if (ppiSection.classList.contains('d-none')) {
+    ppiSection.classList.remove('d-none');
+    ppiSection.scrollIntoView({ behavior: 'smooth' });
+  }
+}
