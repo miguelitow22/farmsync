@@ -269,7 +269,9 @@
 
     <!-- Botón para mostrar sección del PPI -->
     <section id="ppiToggleSection" class="slide-up text-end mb-4">
-      <button class="btn btn-custom" onclick="mostrarPPI()">📘 Ver Información del Proyecto</button>
+      <button class="btn btn-custom" onclick="mostrarPPI()" aria-expanded="false" id="btnVerPPI">
+        📘 Ver Información del Proyecto
+      </button>
     </section>
 
     <!-- Sección Informativa del PPI (inicialmente oculta) -->
@@ -364,6 +366,7 @@
           </ul>
         </div>
       </div>
+      <p class="text-center text-muted">Fin de la información del proyecto 🚜</p>
     </section>
   </main>
   

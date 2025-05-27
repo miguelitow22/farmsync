@@ -223,8 +223,12 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 function mostrarPPI() {
   const ppiSection = document.getElementById('ppiSection');
-  if (ppiSection.classList.contains('d-none')) {
-    ppiSection.classList.remove('d-none');
-    ppiSection.scrollIntoView({ behavior: 'smooth' });
-  }
+  const btn = document.getElementById('btnVerPPI');
+
+  ppiSection.classList.remove('d-none');
+  ppiSection.classList.add('appear');
+  btn.setAttribute('aria-expanded', 'true');
+  document.getElementById('ppiToggleSection').classList.add('d-none');
+
+  ppiSection.scrollIntoView({ behavior: 'smooth' });
 }
