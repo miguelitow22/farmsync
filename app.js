@@ -232,3 +232,27 @@ function mostrarPPI() {
 
   ppiSection.scrollIntoView({ behavior: 'smooth' });
 }
+
+function mostrarInvestigacion() {
+  const section = document.getElementById('investigacionSection');
+  const btn = document.getElementById('btnVerInvestigacion');
+
+  section.classList.remove('d-none');
+  section.classList.add('appear');
+  btn.setAttribute('aria-expanded', 'true');
+  document.getElementById('investigacionToggleSection').classList.add('d-none');
+
+  section.scrollIntoView({ behavior: 'smooth' });
+}
+
+function mostrarCreditos() {
+  const section = document.getElementById('creditosSection');
+  const btn = document.getElementById('btnVerCreditos');
+
+  section.classList.remove('d-none');
+  section.classList.add('appear');
+  btn.setAttribute('aria-expanded', 'true');
+  document.getElementById('creditosToggleSection').classList.add('d-none');
+
+  section.scrollIntoView({ behavior: 'smooth' });
+}

@@ -400,6 +400,99 @@
         </a>
       </div>
     </section>
+
+    <!-- Sección Investigación -->
+    <section id="investigacionSection" class="slide-up d-none">
+      <h2>Investigación</h2>
+      <h3>Las organizaciones como sistemas</h3>
+      <p>
+        Una <strong>organización</strong> puede entenderse como un sistema social complejo compuesto por personas, procesos, tecnologías y recursos, que interactúan de forma coordinada para alcanzar objetivos comunes.
+        Desde la teoría general de sistemas, se considera que una organización no es simplemente un grupo de personas, sino un <em>sistema abierto</em> que interactúa con su entorno constantemente.
+      </p>
+      <h4>¿Qué significa que una organización sea un sistema?</h4>
+      <p>
+        Significa que está compuesta por partes interrelacionadas —departamentos, áreas, personas, tecnologías— que trabajan juntas para lograr metas.
+        Cada parte tiene una función específica, pero el rendimiento total depende de la colaboración entre todas.
+      </p>
+      <h4>Componentes clave de una organización como sistema</h4>
+      <ul>
+        <li><strong>Entradas (inputs):</strong> recursos humanos, materiales, financieros e información que recibe la organización.</li>
+        <li><strong>Procesos:</strong> operaciones, estructuras y estrategias que transforman las entradas en productos o servicios.</li>
+        <li><strong>Salidas (outputs):</strong> bienes, servicios, conocimientos, beneficios sociales o económicos que se entregan al entorno.</li>
+        <li><strong>Retroalimentación:</strong> mecanismos que permiten a la organización adaptarse y mejorar en función de los resultados y del entorno.</li>
+        <li><strong>Entorno:</strong> todo lo externo que influye en la organización, como el mercado, la competencia, la legislación, la economía, etc.</li>
+      </ul>
+      <h4>Características de las organizaciones como sistemas</h4>
+      <ul>
+        <li><strong>Abiertas:</strong> interactúan constantemente con su entorno.</li>
+        <li><strong>Dinámicas:</strong> están en evolución continua debido a cambios internos y externos.</li>
+        <li><strong>Interdependientes:</strong> cada parte depende de las demás para funcionar correctamente.</li>
+        <li><strong>Autorreguladas:</strong> se adaptan a través de la retroalimentación.</li>
+        <li><strong>Con propósito:</strong> tienen metas estratégicas claras.</li>
+      </ul>
+      <h4>Ejemplos reales</h4>
+      <ul>
+        <li><strong>Una universidad:</strong> recibe estudiantes (input), les brinda formación (proceso) y entrega profesionales (output).</li>
+        <li><strong>Una empresa agrícola:</strong> usa tierra, trabajo y tecnología (inputs), cultiva productos (proceso) y entrega alimentos al mercado (output).</li>
+        <li><strong>Una startup tecnológica:</strong> transforma ideas y código en software útil para el usuario final.</li>
+      </ul>
+      <h4>Importancia de este enfoque en la ingeniería de software</h4>
+      <p>
+        Entender a las organizaciones como sistemas permite diseñar <strong>soluciones tecnológicas más alineadas con la realidad operativa</strong>.
+        Un software como <em>FarmSync</em>, por ejemplo, no solo debe funcionar técnicamente, sino integrarse con los procesos reales de una finca o cooperativa agrícola.
+        <br><br>
+        Este enfoque ayuda a:
+      </p>
+      <ul>
+        <li>Detectar cuellos de botella organizacionales.</li>
+        <li>Optimizar recursos.</li>
+        <li>Digitalizar procesos clave con sentido estratégico.</li>
+        <li>Crear herramientas que generen verdadero valor en el contexto en el que se usan.</li>
+      </ul>
+      <p class="mt-3"><em>“Una organización no se mejora con software por sí solo, sino comprendiendo cómo funciona como sistema.”</em></p>
+    </section>
+
+    <!-- Botón para mostrar sección de Investigación -->
+    <section id="investigacionToggleSection" class="slide-up text-end mb-4">
+      <button id="btnVerInvestigacion" class="btn btn-custom" onclick="mostrarInvestigacion()" aria-expanded="false">
+        🧪 Ver Investigación
+      </button>
+    </section>
+
+    <!-- Sección Créditos -->
+    <section id="creditosSection" class="slide-up d-none">
+      <h2>Créditos</h2>
+      <h3>Créditos</h3>
+      <p><strong>Nombre:</strong> Miguel Ángel López Salazar</p>
+      <p>
+        Soy estudiante de Ingeniería de Software en el <strong>Tecnológico de Antioquia</strong>, con una profunda pasión por el desarrollo de soluciones tecnológicas que respondan a problemas reales.
+        A mis 17 años, me he dedicado a crear proyectos que integran tecnología web, bases de datos modernas y conceptos de innovación aplicados al campo y al bienestar social.
+      </p>
+      <p>
+        Disfruto diseñar plataformas funcionales, accesibles y con impacto. En este proyecto, puse en práctica habilidades clave como:
+      </p>
+      <ul>
+        <li>Diseño frontend con HTML, CSS y JavaScript</li>
+        <li>Integración de Supabase (PostgreSQL + Auth + Storage)</li>
+        <li>Simulación de datos en tiempo real</li>
+        <li>Implementación de funciones CRUD para sensores inteligentes</li>
+      </ul>
+      <p>
+        Me enfoco en la creación de sistemas útiles, inteligentes y sostenibles que potencien sectores como la agricultura, la salud y la educación.
+      </p>
+      <p class="mt-3">
+        <em>“Como futuro ingeniero de software, mi meta es desarrollar tecnología que ayude a las personas y transforme positivamente su entorno.”</em>
+      </p>
+      <p>Gracias por tomarte el tiempo de explorar mi proyecto. 🚀</p>
+    </section>
+
+    <!-- Botón para mostrar sección de Créditos -->
+    <section id="creditosToggleSection" class="slide-up text-end mb-4">
+      <button id="btnVerCreditos" class="btn btn-custom" onclick="mostrarCreditos()" aria-expanded="false">
+        🙋 Créditos
+      </button>
+    </section>
+    
   </main>
   
   <!-- Pie de Página -->
@@ -431,6 +524,22 @@
       document.getElementById('ppiToggleSection').classList.add('d-none');
       // Opcional: hacer scroll suave a la sección
       document.getElementById('ppiSection').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Nueva función para mostrar la sección de investigación
+    function mostrarInvestigacion() {
+      document.getElementById('investigacionSection').classList.remove('d-none');
+      document.getElementById('investigacionSection').classList.add('appear');
+      document.getElementById('investigacionToggleSection').classList.add('d-none');
+      document.getElementById('investigacionSection').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Nueva función para mostrar la sección de créditos
+    function mostrarCreditos() {
+      document.getElementById('creditosSection').classList.remove('d-none');
+      document.getElementById('creditosSection').classList.add('appear');
+      document.getElementById('creditosToggleSection').classList.add('d-none');
+      document.getElementById('creditosSection').scrollIntoView({ behavior: 'smooth' });
     }
   </script>
 </body>
